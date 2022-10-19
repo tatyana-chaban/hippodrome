@@ -8,7 +8,6 @@ class MainTest {
     @Timeout(22)
     @Disabled
     void testDuration() throws Exception {
-       Main.main(new String[2]);
+        Main.main(new String[2]);
     }
-
 }

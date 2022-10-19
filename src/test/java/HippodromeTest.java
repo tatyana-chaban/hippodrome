@@ -63,6 +63,4 @@ class HippodromeTest {
         }
         return horses;
     }
-
-
 }

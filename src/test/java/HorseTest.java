@@ -15,32 +15,32 @@ class HorseTest {
     Horse horseDefault = new Horse("Horse", 1);
 
     @Test
-    void ifNameIsNullThrowException(){
-        Throwable exception = assertThrows(IllegalArgumentException.class,() -> new Horse(null, 0, 0));
+    void ifNameIsNullThrowException() {
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Horse(null, 0, 0));
         assertEquals("Name cannot be null.", exception.getMessage());
     }
 
     @ParameterizedTest()
     @ValueSource(strings = {"", " ", "    "})
-    void ifNameIsBlankThrowException(String str){
-        Throwable exception = assertThrows(IllegalArgumentException.class,() -> new Horse(str, 0, 0));
+    void ifNameIsBlankThrowException(String str) {
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Horse(str, 0, 0));
         assertEquals("Name cannot be blank.", exception.getMessage());
     }
 
     @Test
-    void ifSecondArgIsNegativeThrowException(){
-        Throwable exception = assertThrows(IllegalArgumentException.class,() -> new Horse("Horse", -1, 0));
+    void ifSecondArgIsNegativeThrowException() {
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Horse("Horse", -1, 0));
         assertEquals("Speed cannot be negative.", exception.getMessage());
     }
 
     @Test
-    void ifThirdArgIsNegativeThrowException(){
-        Throwable exception = assertThrows(IllegalArgumentException.class,() -> new Horse("Horse", 0, -1));
+    void ifThirdArgIsNegativeThrowException() {
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> new Horse("Horse", 0, -1));
         assertEquals("Distance cannot be negative.", exception.getMessage());
     }
 
     @Test
-    void testGetName(){
+    void testGetName() {
         String expected = "Horse";
         String result = horse.getName();
 
@@ -48,7 +48,7 @@ class HorseTest {
     }
 
     @Test
-    void testGetSpeed(){
+    void testGetSpeed() {
         double expected = 1;
         double result = horse.getSpeed();
 
@@ -56,7 +56,7 @@ class HorseTest {
     }
 
     @Test
-    void testGetDistance(){
+    void testGetDistance() {
         double expected = 1;
         double result = horse.getDistance();
 
@@ -64,7 +64,7 @@ class HorseTest {
     }
 
     @Test
-    void testGetDistanceDefault(){
+    void testGetDistanceDefault() {
         double expected = 0;
         double result = horseDefault.getDistance();
 
@@ -72,19 +72,20 @@ class HorseTest {
     }
 
     @Test
-    void testVerifyGetRandomDouble(){
-        try(MockedStatic<Horse> horseMockedStatic = Mockito.mockStatic(Horse.class)){
+    void testVerifyGetRandomDouble() {
+        try (MockedStatic<Horse> horseMockedStatic = Mockito.mockStatic(Horse.class)) {
             horse.move();
             horseMockedStatic.verify(() -> Horse.getRandomDouble(0.2, 0.9));
         }
     }
+
     @ParameterizedTest
     @ValueSource(doubles = {0.2, 0.3, 0.8})
-    void testMove(double num){
-        try(MockedStatic<Horse> horseMockedStatic = Mockito.mockStatic(Horse.class)){
+    void testMove(double num) {
+        try (MockedStatic<Horse> horseMockedStatic = Mockito.mockStatic(Horse.class)) {
             horseMockedStatic.when(() -> Horse.getRandomDouble(0.2, 0.9)).thenReturn(num);
 
-            double expected = horse.getDistance() + horse.getSpeed() * Horse.getRandomDouble(0.2,0.9);
+            double expected = horse.getDistance() + horse.getSpeed() * Horse.getRandomDouble(0.2, 0.9);
             horse.move();
             double result = horse.getDistance();
 
